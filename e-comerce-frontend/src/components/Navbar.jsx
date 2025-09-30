@@ -47,7 +47,7 @@ const Navbar = ({click}) => {
 
         {!user.userInfo.isLogin ? (
           <li>
-            <Link to="/signin">Signn with emailid</Link>
+            <Link to="/signin">Signn name</Link>
           </li>
         ) : (
           <li>
