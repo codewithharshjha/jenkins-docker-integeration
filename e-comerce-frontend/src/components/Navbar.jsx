@@ -47,11 +47,11 @@ const Navbar = ({click}) => {
 
         {!user.userInfo.isLogin ? (
           <li>
-            <Link to="/signin">Login</Link>
+            <Link to="/signin">Sign In</Link>
           </li>
         ) : (
           <li>
-            <p onClick={_handleLogout}>Logout</p>
+            <p onClick={_handleLogout}>SignOut</p>
           </li>
         )}
       </ul>
