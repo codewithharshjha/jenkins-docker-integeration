@@ -12,12 +12,12 @@ pipeline {
                 git 'https://github.com/codewithharshjha/jenkins-docker-integeration.git'
             }
         }
+stage('Build Images') {
+    steps {
+        sh 'DOCKER_BUILDKIT=0 docker-compose build'
+    }
+}
 
-        stage('Build Images') {
-            steps {
-              sh 'docker-compose build --no-buildkit'
-            }
-        }
 
         stage('Push Images to DockerHub') {
             steps {
