@@ -5,7 +5,7 @@ services:
     build:
       context: ./e-comerce-frontend
       dockerfile: Dockerfile
-    image: ecommerce-frontend:latest   # 👈 Explicit image name
+    image: hjha3987361/ecommerce-frontend:latest   # 👈 Explicit image name
     ports:
       - "3000:80"
     depends_on:
@@ -15,7 +15,7 @@ services:
     build:
       context: ./e-comerce-backend
       dockerfile: Dockerfile
-    image: ecommerce-backend:latest    # 👈 Explicit image name
+    image: hjha3987361/ecommerce-backend:latest    # 👈 Explicit image name
     ports:
       - "5000:5000"
     environment:
