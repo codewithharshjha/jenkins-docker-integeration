@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     environment {
-        REGISTRY = "hjha3987361" // your DockerHub username
-        DOCKER_CREDENTIALS = credentials('Tarnidevi@2024') // set this in Jenkins
+        REGISTRY = "hjha3987361" // DockerHub username
+        DOCKER_CREDENTIALS = credentials('harshjha2003') // Jenkins credentials ID
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/MohitSojitra/e-commerce-store.git'
+                git 'https://github.com/codewithharshjha/jenkins-docker-integeration.git'
             }
         }
 
@@ -23,8 +23,8 @@ pipeline {
             steps {
                 sh '''
                 echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin
-                docker tag ecommerce-project_backend $REGISTRY/ecommerce-backend:latest
-                docker tag ecommerce-project_frontend $REGISTRY/ecommerce-frontend:latest
+                docker tag ecommerce-backend:latest $REGISTRY/ecommerce-backend:latest
+                docker tag ecommerce-frontend:latest $REGISTRY/ecommerce-frontend:latest
                 docker push $REGISTRY/ecommerce-backend:latest
                 docker push $REGISTRY/ecommerce-frontend:latest
                 '''
