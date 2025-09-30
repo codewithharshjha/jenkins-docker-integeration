@@ -12,28 +12,38 @@ pipeline {
                 git 'https://github.com/codewithharshjha/jenkins-docker-integeration.git'
             }
         }
-stage('Build Images') {
-    steps {
-        sh 'DOCKER_BUILDKIT=0 docker-compose build'
-    }
-}
 
+        stage('Build Images') {
+            steps {
+                // Disable BuildKit to avoid docker-buildx dependency
+                sh '''
+                    set -e
+                    DOCKER_BUILDKIT=0 docker-compose build
+                '''
+            }
+        }
 
         stage('Push Images to DockerHub') {
             steps {
                 sh '''
-                echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin
-                docker tag ecommerce-backend:latest $REGISTRY/ecommerce-backend:latest
-                docker tag ecommerce-frontend:latest $REGISTRY/ecommerce-frontend:latest
-                docker push $REGISTRY/ecommerce-backend:latest
-                docker push $REGISTRY/ecommerce-frontend:latest
+                    set -e
+                    echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin
+                    docker tag ecommerce-backend:latest $REGISTRY/ecommerce-backend:latest
+                    docker tag ecommerce-frontend:latest $REGISTRY/ecommerce-frontend:latest
+                    docker push $REGISTRY/ecommerce-backend:latest
+                    docker push $REGISTRY/ecommerce-frontend:latest
                 '''
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'docker-compose down && docker-compose pull && docker-compose up -d'
+                sh '''
+                    set -e
+                    docker-compose down
+                    docker-compose pull
+                    docker-compose up -d
+                '''
             }
         }
     }
