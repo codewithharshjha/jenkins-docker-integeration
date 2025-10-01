@@ -28,7 +28,7 @@ const Navbar = ({click}) => {
   return (
     <nav className="navbar">
       <div className="navbar__logo">
-        <h2>haresh-ecoomerce</h2>
+        <h2>shashank-ecommerce</h2>
       </div>
 
       <ul className="navbar__links">

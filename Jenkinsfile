@@ -23,19 +23,25 @@ pipeline {
                 '''
             }
         }
+stage('Push Images to DockerHub') {
+    steps {
+        sh '''
+            set -e
+            echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin
 
-        stage('Push Images to DockerHub') {
-            steps {
-                sh '''
-                    set -e
-                    echo $DOCKER_CREDENTIALS_PSW | docker login -u $DOCKER_CREDENTIALS_USR --password-stdin
-                        docker tag ecommerce-backend:latest $REGISTRY/ecommerce-backend:$IMAGE_TAG
-                    docker tag ecommerce-frontend:latest $REGISTRY/ecommerce-frontend:$IMAGE_TAG
-                    docker push $REGISTRY/ecommerce-backend:$IMAGE_TAG
-                    docker push $REGISTRY/ecommerce-frontend:$IMAGE_TAG
-                '''
-            }
-        }
+            # Backend
+            docker tag $REGISTRY/ecommerce-backend:latest $REGISTRY/ecommerce-backend:$IMAGE_TAG
+            docker push $REGISTRY/ecommerce-backend:latest
+            docker push $REGISTRY/ecommerce-backend:$IMAGE_TAG
+
+            # Frontend
+            docker tag $REGISTRY/ecommerce-frontend:latest $REGISTRY/ecommerce-frontend:$IMAGE_TAG
+            docker push $REGISTRY/ecommerce-frontend:latest
+            docker push $REGISTRY/ecommerce-frontend:$IMAGE_TAG
+        '''
+    }
+}
+
 
         stage('Deploy') {
             steps {
