@@ -5,7 +5,8 @@ pipeline {
         REGISTRY = "hjha3987361"
         DOCKER_CREDENTIALS = credentials('harshjha2003')
         IMAGE_TAG = "${env.BUILD_NUMBER}"
-          IMAGE_TAG = "${env.BUILD_NUMBER}"
+          
+          
     }
 
     stages {
