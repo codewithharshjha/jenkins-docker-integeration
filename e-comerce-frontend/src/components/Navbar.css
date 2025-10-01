@@ -10,7 +10,7 @@
 
 .navbar__logo h2 {
   color: #f4f4f4;
-  font-size: 1.4rem;
+  font-size: 1.7rem;
   cursor: pointer;
 }
 
@@ -33,7 +33,7 @@
 }
 .navbar__links > li > p {
   text-decoration: none;
-  color: #f4f4f4;
+  color: #521616;
   font-size: 1.2rem;
   display: flex;
   align-items: center;
